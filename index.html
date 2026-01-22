@@ -29,21 +29,19 @@
                 })
             });
         }
-        createImage('https://sevenam.vn/wp-content/uploads/2025/11/anh-anime-dep.jpg')
-            .then(img => {
-                currentImg = img;
-                wait(2);
-            }).then(() => {
-                currentImg.style.display = 'none';
-                return createImage('https://demoda.vn/wp-content/uploads/2022/03/anh-anime-phong-canh-dep-lam-hinh-nen.jpg');
-            }).then(img => {
-                currentImg = img;
-                wait(2);
-            }).then(() => {
-                currentImg.style.display = 'none';
-            }).catch(err => {
+        async function loadNPause() {
+            try {
+                const img1 = await createImage('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482740paR/anh-mo-ta.png')
+                await wait(2);
+                img1.style.display = 'none';
+                const img2 = await createImage('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482740paR/anh-mo-ta.png')
+                await wait(2);
+                img2.style.display = 'none';
+            } catch (error) {
                 console.error(err);
-            })
+            }
+        }
+        loadNPause();
     </script>
 </body>
 
