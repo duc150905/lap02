@@ -29,19 +29,19 @@
                 })
             });
         }
-        async function loadNPause() {
+        async function loadAll(imgArr) {
             try {
-                const img1 = await createImage('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482740paR/anh-mo-ta.png')
-                await wait(2);
-                img1.style.display = 'none';
-                const img2 = await createImage('https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482740paR/anh-mo-ta.png')
-                await wait(2);
-                img2.style.display = 'none';
+                const imgs = imgArr.map(path => createImage(path));
+                const images = await Promise.all(imgs);
+                images.forEach(img => img.classList.add('parallel'));
             } catch (error) {
-                console.error(err);
+                console.error(error);
             }
         }
-        loadNPause();
+        const imgArr = ['https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482740paR/anh-mo-ta.png'
+            , 'https://img.tripi.vn/cdn-cgi/image/width=700,height=700/https://gcs.tripi.vn/public-tripi/tripi-feed/img/482740paR/anh-mo-ta.png'
+            , 'https://images2.thanhnien.vn/528068263637045248/2024/1/25/c3c8177f2e6142e8c4885dbff89eb92a-65a11aeea03da880-1706156293184503262817.jpg'];
+        loadAll(imgArr);
     </script>
 </body>
 
