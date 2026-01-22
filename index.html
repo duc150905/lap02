@@ -10,6 +10,12 @@
 <body>
     <div class="images"></div>
     <script>
+        let currentImg;
+        function wait(seconds) {
+            return new Promise(function (resolve) {
+                setTimeout(resolve, seconds * 1000);
+            });
+        }
         function createImage(imgPath) {
             return new Promise(function (resolve, reject) {
                 const img = document.createElement('img');
@@ -24,6 +30,20 @@
             });
         }
         createImage('https://sevenam.vn/wp-content/uploads/2025/11/anh-anime-dep.jpg')
+            .then(img => {
+                currentImg = img;
+                wait(2);
+            }).then(() => {
+                currentImg.style.display = 'none';
+                return createImage('https://demoda.vn/wp-content/uploads/2022/03/anh-anime-phong-canh-dep-lam-hinh-nen.jpg');
+            }).then(img => {
+                currentImg = img;
+                wait(2);
+            }).then(() => {
+                currentImg.style.display = 'none';
+            }).catch(err => {
+                console.error(err);
+            })
     </script>
 </body>
 
