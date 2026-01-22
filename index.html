@@ -8,28 +8,22 @@
 </head>
 
 <body>
+    <div class="images"></div>
     <script>
-        function whereAmI(lat, lng) {
-            fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}&localityLanguage=en`)
-                .then(response => {
-                    if (!response.ok) throw new Error(`${response.status}`);
-                    return response.json();
-                }).then(data => {
-                    const country = data.countryName;
-                    return fetch(`https://restcountries.com/v3.1/name/${country}`)
-                }).then(response => {
-                    if (!response.ok) throw new Error("country not found");
-                    return response.json();
-                }).then(data => {
-                    console.log(data);
+        function createImage(imgPath) {
+            return new Promise(function (resolve, reject) {
+                const img = document.createElement('img');
+                img.src = imgPath;
+                img.addEventListener('load', function () {
+                    document.querySelector('.images').append(img);
+                    resolve(img);
                 })
-                .catch(err => {
-                    console.error(`${err.message}`);
-                });
+                img.addEventListener('error', function () {
+                    reject(new Error('Image not found'));
+                })
+            });
         }
-        whereAmI(52.508, 13.381); // Berlin, Germany
-        whereAmI(19.037, 72.873); // Mumbai, India
-        whereAmI(-33.933, 18.474); // Cape Town, South Afric
+        createImage('https://sevenam.vn/wp-content/uploads/2025/11/anh-anime-dep.jpg')
     </script>
 </body>
 
